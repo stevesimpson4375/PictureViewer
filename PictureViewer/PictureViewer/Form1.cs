@@ -32,7 +32,7 @@ namespace PictureViewer
                 pictureBox1.Load(openFileDialog1.FileName);
                 picName = openFileDialog1.FileName;
             }
-            filesInFolder = Directory.GetFiles(@"F:\documents\pics\1\al");
+            filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
             for (int x = 0; x < filesInFolder.Length; ++x)
             {
                 if (picName.Equals(filesInFolder[x]))
