@@ -39,6 +39,7 @@
             this.nextButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.zoomSlider = new System.Windows.Forms.HScrollBar();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -63,8 +64,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 2);
@@ -93,6 +94,7 @@
             this.flowLayoutPanel1.Controls.Add(this.showButton);
             this.flowLayoutPanel1.Controls.Add(this.previousButton);
             this.flowLayoutPanel1.Controls.Add(this.nextButton);
+            this.flowLayoutPanel1.Controls.Add(this.zoomSlider);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(105, 282);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -161,6 +163,14 @@
     "s (*.*)|*.*";
             this.openFileDialog1.Title = "Select a Picture";
             // 
+            // zoomSlider
+            // 
+            this.zoomSlider.Location = new System.Drawing.Point(439, 0);
+            this.zoomSlider.Name = "zoomSlider";
+            this.zoomSlider.Size = new System.Drawing.Size(131, 29);
+            this.zoomSlider.TabIndex = 6;
+            this.zoomSlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.zoomSlider_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,6 +203,7 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button previousButton;
         private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.HScrollBar zoomSlider;
     }
 }
 
