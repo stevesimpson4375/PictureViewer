@@ -37,9 +37,9 @@
             this.showButton = new System.Windows.Forms.Button();
             this.previousButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
+            this.zoomSlider = new System.Windows.Forms.HScrollBar();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.zoomSlider = new System.Windows.Forms.HScrollBar();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -59,7 +59,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(684, 311);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 411);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -71,7 +71,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 2);
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(678, 273);
+            this.pictureBox1.Size = new System.Drawing.Size(778, 363);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -79,7 +79,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(3, 282);
+            this.checkBox1.Location = new System.Drawing.Point(3, 372);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(60, 17);
             this.checkBox1.TabIndex = 1;
@@ -96,9 +96,9 @@
             this.flowLayoutPanel1.Controls.Add(this.nextButton);
             this.flowLayoutPanel1.Controls.Add(this.zoomSlider);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(105, 282);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(120, 372);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(576, 26);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(661, 36);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // closeButton
@@ -156,6 +156,18 @@
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
+            // zoomSlider
+            // 
+            this.zoomSlider.LargeChange = 1;
+            this.zoomSlider.Location = new System.Drawing.Point(439, 0);
+            this.zoomSlider.Maximum = 5;
+            this.zoomSlider.Minimum = 1;
+            this.zoomSlider.Name = "zoomSlider";
+            this.zoomSlider.Size = new System.Drawing.Size(131, 26);
+            this.zoomSlider.TabIndex = 6;
+            this.zoomSlider.Value = 1;
+            this.zoomSlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.zoomSlider_Scroll);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -163,19 +175,11 @@
     "s (*.*)|*.*";
             this.openFileDialog1.Title = "Select a Picture";
             // 
-            // zoomSlider
-            // 
-            this.zoomSlider.Location = new System.Drawing.Point(439, 0);
-            this.zoomSlider.Name = "zoomSlider";
-            this.zoomSlider.Size = new System.Drawing.Size(131, 29);
-            this.zoomSlider.TabIndex = 6;
-            this.zoomSlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.zoomSlider_Scroll);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 311);
+            this.ClientSize = new System.Drawing.Size(784, 411);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -66,10 +66,11 @@ namespace PictureViewer
             this.Close();
         }
 
+        // This checkbox currently switches between being able to zoom and fullscreen
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
-                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
             else
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
         }
