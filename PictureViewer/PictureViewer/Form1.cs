@@ -93,6 +93,7 @@ namespace PictureViewer
 
         private void nextButton_Click(object sender, EventArgs e)
         {
+            // The next button increments the current index for the string[] and loads the next filepath
             string nextPic = "";
             if (fileIndex < filesInFolder.Length - 1)
             {
