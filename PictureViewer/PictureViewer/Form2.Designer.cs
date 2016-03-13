@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.openPicture = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.closeButton = new System.Windows.Forms.Button();
+            this.previousButton = new System.Windows.Forms.Button();
+            this.nextButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -42,23 +45,23 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(17, 18);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(609, 267);
+            this.pictureBox1.Size = new System.Drawing.Size(659, 322);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // button1
+            // openPicture
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button1.Location = new System.Drawing.Point(117, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.showButton_Click);
+            this.openPicture.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.openPicture.Location = new System.Drawing.Point(129, 9);
+            this.openPicture.Name = "openPicture";
+            this.openPicture.Size = new System.Drawing.Size(88, 23);
+            this.openPicture.TabIndex = 1;
+            this.openPicture.Text = "Open a Picture";
+            this.openPicture.UseVisualStyleBackColor = true;
+            this.openPicture.Click += new System.EventHandler(this.showButton_Click);
             // 
             // openFileDialog1
             // 
@@ -68,7 +71,7 @@
             // 
             this.hScrollBar1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.hScrollBar1.LargeChange = 1;
-            this.hScrollBar1.Location = new System.Drawing.Point(242, 20);
+            this.hScrollBar1.Location = new System.Drawing.Point(448, 9);
             this.hScrollBar1.Maximum = 10;
             this.hScrollBar1.Name = "hScrollBar1";
             this.hScrollBar1.Size = new System.Drawing.Size(208, 17);
@@ -85,7 +88,10 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.splitContainer1.Panel1.Controls.Add(this.nextButton);
+            this.splitContainer1.Panel1.Controls.Add(this.previousButton);
+            this.splitContainer1.Panel1.Controls.Add(this.closeButton);
+            this.splitContainer1.Panel1.Controls.Add(this.openPicture);
             this.splitContainer1.Panel1.Controls.Add(this.hScrollBar1);
             // 
             // splitContainer1.Panel2
@@ -93,8 +99,41 @@
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer1.Size = new System.Drawing.Size(665, 392);
-            this.splitContainer1.SplitterDistance = 80;
+            this.splitContainer1.SplitterDistance = 42;
             this.splitContainer1.TabIndex = 4;
+            // 
+            // closeButton
+            // 
+            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.closeButton.Location = new System.Drawing.Point(12, 9);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 4;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // previousButton
+            // 
+            this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.previousButton.Location = new System.Drawing.Point(223, 9);
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(75, 23);
+            this.previousButton.TabIndex = 5;
+            this.previousButton.Text = "Previous";
+            this.previousButton.UseVisualStyleBackColor = true;
+            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
+            // 
+            // nextButton
+            // 
+            this.nextButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.nextButton.Location = new System.Drawing.Point(304, 9);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(75, 23);
+            this.nextButton.TabIndex = 6;
+            this.nextButton.Text = "Next";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // Form2
             // 
@@ -117,9 +156,12 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button openPicture;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button previousButton;
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace PictureViewer
 {
+
     public partial class Form2 : Form
     {
 
@@ -57,6 +58,44 @@ namespace PictureViewer
                 Size change = new Size(hScrollBar1.Value * original.Width, hScrollBar1.Value * original.Height);
                 pictureBox1.Size = change;
             }
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            // The next button increments the current index for the string[] and loads the next filepath
+            string nextPic = "";
+            if (fileIndex < filesInFolder.Length - 1)
+            {
+                nextPic = filesInFolder[++fileIndex];
+            }
+            else
+            {
+                fileIndex = 0;
+                nextPic = filesInFolder[0];
+            }
+            imageOriginal = Image.FromFile(nextPic);
+            pictureBox1.Image = imageOriginal;
+        }
+
+        private void previousButton_Click(object sender, EventArgs e)
+        {
+            string nextPic = "";
+            if (fileIndex > 0)
+            {
+                nextPic = filesInFolder[--fileIndex];
+            }
+            else
+            {
+                fileIndex = filesInFolder.Length;
+                nextPic = filesInFolder[--fileIndex];
+            }
+            imageOriginal = Image.FromFile(nextPic);
+            pictureBox1.Image = imageOriginal;
         }
     }
 }
