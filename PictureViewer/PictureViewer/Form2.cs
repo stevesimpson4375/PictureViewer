@@ -23,6 +23,8 @@ namespace PictureViewer
         string[] filesInFolder;
         int fileIndex;
         string picName;
+        bool dragging;
+        Point start;
 
         public Form2()
         {
@@ -82,6 +84,7 @@ namespace PictureViewer
             }
             imageOriginal = Image.FromFile(nextPic);
             pictureBox1.Image = imageOriginal;
+            pictureBoxSizeMatch();
         }
 
         private void previousButton_Click(object sender, EventArgs e)
@@ -98,6 +101,7 @@ namespace PictureViewer
             }
             imageOriginal = Image.FromFile(nextPic);
             pictureBox1.Image = imageOriginal;
+            pictureBoxSizeMatch();
         }
 
         private void pictureBoxSizeMatch()
@@ -107,11 +111,6 @@ namespace PictureViewer
                 pictureBox1.Size = splitContainer1.Panel2.Size;
                 picBoxSize = splitContainer1.Panel2.Size;
             }
-        }
-
-        private void nextButton_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            MessageBox.Show("Pressed");
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -129,8 +128,32 @@ namespace PictureViewer
 
             else
                 return base.ProcessCmdKey(ref msg, keyData);
+
+            // http://stackoverflow.com/questions/1298640/c-sharp-trying-to-capture-the-keydown-event-on-a-form
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                dragging = true;
+                start = e.Location;
+            }
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                pictureBox1.Location = new Point(pictureBox1.Left + e.Location.X - start.X,
+                    pictureBox1.Top + e.Location.Y - start.Y);
+            }
+        }
+        // http://stackoverflow.com/questions/8985586/a-simple-panning-picturebox-winforms
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
         }
     }
-
-    // http://stackoverflow.com/questions/1298640/c-sharp-trying-to-capture-the-keydown-event-on-a-form
 }
