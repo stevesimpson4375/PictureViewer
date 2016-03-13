@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace PictureViewer
 {
 
-    public partial class Form2 : Form
+    public partial class PictureViewer : Form
     {
 
         Size picBoxSize = new Size(550, 250);
@@ -26,7 +26,7 @@ namespace PictureViewer
         bool dragging;
         Point start;
 
-        public Form2()
+        public PictureViewer()
         {
             InitializeComponent();
         }
@@ -35,24 +35,27 @@ namespace PictureViewer
         {
             // This button allows the user to search for a file, view it, and create 
             // a string[] of filepaths of the other files in the same directory
+
+            if (openFileDialog1.FileName != null) openFileDialog1.FileName = "*"; // This ensures the dialog box does not have old string
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 imageOriginal = Image.FromFile(openFileDialog1.FileName);
                 pictureBox1.Image = imageOriginal;
                 picName = openFileDialog1.FileName;
-            }
-            filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
 
-            // This for statement determines where the picture the user selected is in the string array
-            for (int x = 0; x < filesInFolder.Length; ++x)
-            {
-                if (picName.Equals(filesInFolder[x]))
+                filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
+
+                // This for statement determines where the picture the user selected is in the string array
+                for (int x = 0; x < filesInFolder.Length; ++x)
                 {
-                    fileIndex = x;
+                    if (picName.Equals(filesInFolder[x]))
+                    {
+                        fileIndex = x;
+                    }
                 }
+                pictureBoxSizeMatch();
             }
-
-            pictureBoxSizeMatch();
         }
 
         private void zoomSlider_Scroll(object sender, ScrollEventArgs e)
@@ -106,11 +109,9 @@ namespace PictureViewer
 
         private void pictureBoxSizeMatch()
         {
-            if (pictureBox1.Size.Width < splitContainer1.Panel2.Size.Width)
-            {
-                pictureBox1.Size = splitContainer1.Panel2.Size;
-                picBoxSize = splitContainer1.Panel2.Size;
-            }
+            pictureBox1.Size = splitContainer1.Panel2.Size;
+            picBoxSize = splitContainer1.Panel2.Size;
+  
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -132,6 +133,8 @@ namespace PictureViewer
             // http://stackoverflow.com/questions/1298640/c-sharp-trying-to-capture-the-keydown-event-on-a-form
         }
 
+        // The mouse down event finds the location of the mouse clisk and determines that the mouse is dragging,
+        // the dragging boolean is set to false with mouseClickUp
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -141,6 +144,7 @@ namespace PictureViewer
             }
         }
 
+        // Dragging the mouse after clicking pans the picture
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (dragging)
@@ -151,9 +155,16 @@ namespace PictureViewer
         }
         // http://stackoverflow.com/questions/8985586/a-simple-panning-picturebox-winforms
 
+        // Releasing the mouse button stops the panning
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             dragging = false;
+        }
+
+        // The pictureBox is resized when the user changes the size of the form
+        private void PictureViewer_Resize(object sender, EventArgs e)
+        {
+            pictureBoxSizeMatch();
         }
     }
 }

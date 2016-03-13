@@ -1,6 +1,6 @@
 ﻿namespace PictureViewer
 {
-    partial class Form2
+    partial class PictureViewer
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,8 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileName = "*";
+            this.openFileDialog1.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*";
             // 
             // zoomSlider
             // 
@@ -152,15 +153,16 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
-            // Form2
+            // PictureViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(665, 392);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form2";
-            this.Text = "Form2";
+            this.Name = "PictureViewer";
+            this.Text = "PictureViewer";
+            this.Resize += new System.EventHandler(this.PictureViewer_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
