@@ -31,11 +31,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openPicture = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
+            this.zoomSlider = new System.Windows.Forms.HScrollBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.closeButton = new System.Windows.Forms.Button();
-            this.previousButton = new System.Windows.Forms.Button();
+            this.zoomLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
+            this.previousButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -67,17 +68,18 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // hScrollBar1
+            // zoomSlider
             // 
-            this.hScrollBar1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.hScrollBar1.LargeChange = 1;
-            this.hScrollBar1.Location = new System.Drawing.Point(448, 9);
-            this.hScrollBar1.Maximum = 10;
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(208, 17);
-            this.hScrollBar1.TabIndex = 3;
-            this.hScrollBar1.Value = 1;
-            this.hScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBar1_Scroll);
+            this.zoomSlider.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.zoomSlider.LargeChange = 1;
+            this.zoomSlider.Location = new System.Drawing.Point(474, 9);
+            this.zoomSlider.Maximum = 20;
+            this.zoomSlider.Minimum = 1;
+            this.zoomSlider.Name = "zoomSlider";
+            this.zoomSlider.Size = new System.Drawing.Size(182, 17);
+            this.zoomSlider.TabIndex = 3;
+            this.zoomSlider.Value = 1;
+            this.zoomSlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.zoomSlider_Scroll);
             // 
             // splitContainer1
             // 
@@ -88,11 +90,12 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.zoomLabel);
             this.splitContainer1.Panel1.Controls.Add(this.nextButton);
             this.splitContainer1.Panel1.Controls.Add(this.previousButton);
             this.splitContainer1.Panel1.Controls.Add(this.closeButton);
             this.splitContainer1.Panel1.Controls.Add(this.openPicture);
-            this.splitContainer1.Panel1.Controls.Add(this.hScrollBar1);
+            this.splitContainer1.Panel1.Controls.Add(this.zoomSlider);
             // 
             // splitContainer1.Panel2
             // 
@@ -101,28 +104,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(665, 392);
             this.splitContainer1.SplitterDistance = 42;
             this.splitContainer1.TabIndex = 4;
+            this.splitContainer1.TabStop = false;
             // 
-            // closeButton
+            // zoomLabel
             // 
-            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.closeButton.Location = new System.Drawing.Point(12, 9);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(75, 23);
-            this.closeButton.TabIndex = 4;
-            this.closeButton.Text = "Close";
-            this.closeButton.UseVisualStyleBackColor = true;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
-            // 
-            // previousButton
-            // 
-            this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.previousButton.Location = new System.Drawing.Point(223, 9);
-            this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(75, 23);
-            this.previousButton.TabIndex = 5;
-            this.previousButton.Text = "Previous";
-            this.previousButton.UseVisualStyleBackColor = true;
-            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
+            this.zoomLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.zoomLabel.AutoSize = true;
+            this.zoomLabel.Location = new System.Drawing.Point(436, 9);
+            this.zoomLabel.Name = "zoomLabel";
+            this.zoomLabel.Size = new System.Drawing.Size(34, 13);
+            this.zoomLabel.TabIndex = 7;
+            this.zoomLabel.Text = "Zoom";
             // 
             // nextButton
             // 
@@ -130,10 +122,33 @@
             this.nextButton.Location = new System.Drawing.Point(304, 9);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(75, 23);
-            this.nextButton.TabIndex = 6;
+            this.nextButton.TabIndex = 3;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            this.nextButton.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nextButton_KeyPress);
+            // 
+            // previousButton
+            // 
+            this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.previousButton.Location = new System.Drawing.Point(223, 9);
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(75, 23);
+            this.previousButton.TabIndex = 2;
+            this.previousButton.Text = "Previous";
+            this.previousButton.UseVisualStyleBackColor = true;
+            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.closeButton.Location = new System.Drawing.Point(12, 9);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 3;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // Form2
             // 
@@ -146,6 +161,7 @@
             this.Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -158,10 +174,11 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button openPicture;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.HScrollBar zoomSlider;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Button previousButton;
+        private System.Windows.Forms.Label zoomLabel;
     }
 }

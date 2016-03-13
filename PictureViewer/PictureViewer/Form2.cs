@@ -16,7 +16,7 @@ namespace PictureViewer
     public partial class Form2 : Form
     {
 
-        Size original = new Size(550, 250);
+        Size picBoxSize = new Size(550, 250);
         Image imageOriginal;
         protected string[] pFileNames;
         protected int pCurrentImage = -1;
@@ -49,13 +49,15 @@ namespace PictureViewer
                     fileIndex = x;
                 }
             }
+
+            pictureBoxSizeMatch();
         }
 
-        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        private void zoomSlider_Scroll(object sender, ScrollEventArgs e)
         {
-            if (hScrollBar1.Value > 0)
+            if (zoomSlider.Value > 0)
             {
-                Size change = new Size(hScrollBar1.Value * original.Width, hScrollBar1.Value * original.Height);
+                Size change = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
                 pictureBox1.Size = change;
             }
         }
@@ -97,5 +99,38 @@ namespace PictureViewer
             imageOriginal = Image.FromFile(nextPic);
             pictureBox1.Image = imageOriginal;
         }
+
+        private void pictureBoxSizeMatch()
+        {
+            if (pictureBox1.Size.Width < splitContainer1.Panel2.Size.Width)
+            {
+                pictureBox1.Size = splitContainer1.Panel2.Size;
+                picBoxSize = splitContainer1.Panel2.Size;
+            }
+        }
+
+        private void nextButton_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            MessageBox.Show("Pressed");
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Left)
+            {
+                previousButton.PerformClick();
+                return true; //for the active control to see the keypress, return false
+            }
+            else if (keyData == Keys.Right)
+            {
+                nextButton.PerformClick();
+                return true; //for the active control to see the keypress, return false
+            }
+
+            else
+                return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
+
+    // http://stackoverflow.com/questions/1298640/c-sharp-trying-to-capture-the-keydown-event-on-a-form
 }
