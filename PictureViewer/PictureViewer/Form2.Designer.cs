@@ -70,7 +70,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "*";
-            this.openFileDialog1.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*";
+            this.openFileDialog1.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF*";
             // 
             // zoomSlider
             // 

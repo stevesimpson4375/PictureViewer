@@ -25,6 +25,8 @@ namespace PictureViewer
         string picName;
         bool dragging;
         Point start;
+        Point basePoint = new Point(0,0);
+        string nextPic;
 
         public PictureViewer()
         {
@@ -40,30 +42,22 @@ namespace PictureViewer
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                imageOriginal = Image.FromFile(openFileDialog1.FileName);
-                pictureBox1.Image = imageOriginal;
-                picName = openFileDialog1.FileName;
-
-                filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
-
-                // This for statement determines where the picture the user selected is in the string array
-                for (int x = 0; x < filesInFolder.Length; ++x)
-                {
-                    if (picName.Equals(filesInFolder[x]))
-                    {
-                        fileIndex = x;
-                    }
-                }
-                pictureBoxSizeMatch();
+				LoadNewPictureAndFileNames();
             }
         }
 
         private void zoomSlider_Scroll(object sender, ScrollEventArgs e)
         {
-            if (zoomSlider.Value > 0)
+            if (zoomSlider.Value > 2)
             {
-                Size change = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
-                pictureBox1.Size = change;
+                // pictureBox1.Location = new Point(-pictureBox1.Width/2, -pictureBox1.Height/2);
+				// Perhaps compare center points https://nickstips.wordpress.com/2010/11/08/c-programmatically-centering-a-control-extension-method/
+                pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
+            }
+            else
+            {
+                pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
+                pictureBox1.Location = basePoint;
             }
         }
 
@@ -75,7 +69,7 @@ namespace PictureViewer
         private void nextButton_Click(object sender, EventArgs e)
         {
             // The next button increments the current index for the string[] and loads the next filepath
-            string nextPic = "";
+            nextPic = "";
             if (fileIndex < filesInFolder.Length - 1)
             {
                 nextPic = filesInFolder[++fileIndex];
@@ -85,9 +79,7 @@ namespace PictureViewer
                 fileIndex = 0;
                 nextPic = filesInFolder[0];
             }
-            imageOriginal = Image.FromFile(nextPic);
-            pictureBox1.Image = imageOriginal;
-            pictureBoxSizeMatch();
+			LoadNewPicture();
         }
 
         private void previousButton_Click(object sender, EventArgs e)
@@ -102,18 +94,18 @@ namespace PictureViewer
                 fileIndex = filesInFolder.Length;
                 nextPic = filesInFolder[--fileIndex];
             }
-            imageOriginal = Image.FromFile(nextPic);
-            pictureBox1.Image = imageOriginal;
-            pictureBoxSizeMatch();
+			LoadNewPicture();
         }
 
+        // This method matched the pictureBox size to the panel
         private void pictureBoxSizeMatch()
         {
             pictureBox1.Size = splitContainer1.Panel2.Size;
             picBoxSize = splitContainer1.Panel2.Size;
-  
+            pictureBox1.Location = basePoint;
         }
 
+        // This method allows the arrow keys to operate buttons
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Left)
@@ -133,7 +125,7 @@ namespace PictureViewer
             // http://stackoverflow.com/questions/1298640/c-sharp-trying-to-capture-the-keydown-event-on-a-form
         }
 
-        // The mouse down event finds the location of the mouse clisk and determines that the mouse is dragging,
+        // The mouse down event finds the location of the mouse click and determines that the mouse is dragging,
         // the dragging boolean is set to false with mouseClickUp
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -166,5 +158,33 @@ namespace PictureViewer
         {
             pictureBoxSizeMatch();
         }
+		
+		// Loading a new picture through the open file dialog must do some resizing and create a new string[] of file names
+		private void LoadNewPictureAndFileNames()
+		{
+			imageOriginal = Image.FromFile(openFileDialog1.FileName);
+			pictureBox1.Image = imageOriginal;
+			picName = openFileDialog1.FileName;
+
+			filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
+
+			// This for statement determines where the picture the user selected is in the string array
+			for (int x = 0; x < filesInFolder.Length; ++x)
+			{
+				if (picName.Equals(filesInFolder[x]))
+				{
+					fileIndex = x;
+				}
+			}
+			pictureBoxSizeMatch();
+		}
+
+		// Loading a new picture requires setting the next filepath, loading a pic, and resizing the picturebox
+		private void LoadNewPicture()
+		{
+			imageOriginal = Image.FromFile(nextPic); // is this step required? Perhaps just pictureBox1.Image= Image.FromFile(nextpic)
+			pictureBox1.Image = imageOriginal;
+			pictureBoxSizeMatch();
+		}
     }
 }
