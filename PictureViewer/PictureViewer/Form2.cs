@@ -50,8 +50,6 @@ namespace PictureViewer
         {
             if (zoomSlider.Value > 1)
             {
-                pictureBox1.Location = new Point(pictureBox1.Location.X - splitContainer1.Panel2.Width/8, pictureBox1.Location.Y - splitContainer1.Panel2.Height/8);
-				// Perhaps compare center points https://nickstips.wordpress.com/2010/11/08/c-programmatically-centering-a-control-extension-method/
                 pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
             }
             else
@@ -84,7 +82,7 @@ namespace PictureViewer
 
         private void previousButton_Click(object sender, EventArgs e)
         {
-            string nextPic = "";
+            nextPic = "";
             if (fileIndex > 0)
             {
                 nextPic = filesInFolder[--fileIndex];
