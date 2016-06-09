@@ -20,13 +20,15 @@ namespace PictureViewer
         Image imageOriginal;
         protected string[] pFileNames;
         protected int pCurrentImage = -1;
-        string[] filesInFolder;
+        String[] filesInFolder;
+        List<String> filesInFolderWithValidExtension = new List<String>();
         int fileIndex;
         string picName;
         bool dragging;
         Point start;
-        Point basePoint = new Point(0,0);
+        Point basePoint = new Point(0, 0);
         string nextPic;
+        //string filters = "*.png";
 
         public PictureViewer()
         {
@@ -38,11 +40,16 @@ namespace PictureViewer
             // This button allows the user to search for a file, view it, and create 
             // a string[] of filepaths of the other files in the same directory
 
-            if (openFileDialog1.FileName != null) openFileDialog1.FileName = "*"; // This ensures the dialog box does not have old string
-
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-				LoadNewPictureAndFileNames();
+                if (openFileDialog1.FileName.EndsWith(".jpg") || openFileDialog1.FileName.EndsWith(".png") || openFileDialog1.FileName.EndsWith(".gif"))
+                {
+                    LoadNewPictureAndFileNames();
+                }
+                else
+                {
+                    MessageBox.Show("You can only select image files","Error");
+                }
             }
         }
 
@@ -68,16 +75,16 @@ namespace PictureViewer
         {
             // The next button increments the current index for the string[] and loads the next filepath
             nextPic = "";
-            if (fileIndex < filesInFolder.Length - 1)
+            if (fileIndex < filesInFolderWithValidExtension.Count - 1)
             {
-                nextPic = filesInFolder[++fileIndex];
+                nextPic = filesInFolderWithValidExtension[++fileIndex];
             }
             else
             {
                 fileIndex = 0;
-                nextPic = filesInFolder[0];
+                nextPic = filesInFolderWithValidExtension[0];
             }
-			LoadNewPicture();
+            LoadNewPicture();
         }
 
         private void previousButton_Click(object sender, EventArgs e)
@@ -85,14 +92,14 @@ namespace PictureViewer
             nextPic = "";
             if (fileIndex > 0)
             {
-                nextPic = filesInFolder[--fileIndex];
+                nextPic = filesInFolderWithValidExtension[--fileIndex];
             }
             else
             {
-                fileIndex = filesInFolder.Length;
-                nextPic = filesInFolder[--fileIndex];
+                fileIndex = filesInFolderWithValidExtension.Count;
+                nextPic = filesInFolderWithValidExtension[--fileIndex];
             }
-			LoadNewPicture();
+            LoadNewPicture();
         }
 
         // This method matched the pictureBox size to the panel
@@ -156,33 +163,41 @@ namespace PictureViewer
         {
             pictureBoxSizeMatch();
         }
-		
-		// Loading a new picture through the open file dialog must do some resizing and create a new string[] of file names
-		private void LoadNewPictureAndFileNames()
-		{
-			imageOriginal = Image.FromFile(openFileDialog1.FileName);
-			pictureBox1.Image = imageOriginal;
-			picName = openFileDialog1.FileName;
 
-			filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
+        // Loading a new picture through the open file dialog must do some resizing and create a new string[] of file names
+        private void LoadNewPictureAndFileNames()
+        {
+            imageOriginal = Image.FromFile(openFileDialog1.FileName);
+            pictureBox1.Image = imageOriginal;
+            picName = openFileDialog1.FileName;
 
-			// This for statement determines where the picture the user selected is in the string array
-			for (int x = 0; x < filesInFolder.Length; ++x)
-			{
-				if (picName.Equals(filesInFolder[x]))
-				{
-					fileIndex = x;
-				}
-			}
-			pictureBoxSizeMatch();
-		}
+            filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
 
-		// Loading a new picture requires setting the next filepath, loading a pic, and resizing the picturebox
-		private void LoadNewPicture()
-		{
-			imageOriginal = Image.FromFile(nextPic); // is this step required? Perhaps just pictureBox1.Image= Image.FromFile(nextpic)
-			pictureBox1.Image = imageOriginal;
-			pictureBoxSizeMatch();
-		}
+            for (int x = 0; x < filesInFolder.Length; ++x)
+            {
+                if (filesInFolder[x].EndsWith(".jpg") || filesInFolder[x].EndsWith(".png") || filesInFolder[x].EndsWith(".gif"))
+                {
+                    filesInFolderWithValidExtension.Add(filesInFolder[x]);
+                }
+            }
+            
+            // This for statement determines where the picture the user selected is in the string array
+            for (int x = 0; x < filesInFolderWithValidExtension.Count; ++x)
+            {
+                if (picName.Equals(filesInFolderWithValidExtension[x]))
+                {
+                    fileIndex = x;
+                }
+            }
+            pictureBoxSizeMatch();
+        }
+
+        // Loading a new picture requires setting the next filepath, loading a pic, and resizing the picturebox
+        private void LoadNewPicture()
+        {
+            imageOriginal = Image.FromFile(nextPic); // is this step required? Perhaps just pictureBox1.Image= Image.FromFile(nextpic)
+            pictureBox1.Image = imageOriginal;
+            pictureBoxSizeMatch();
+        }
     }
 }
