@@ -28,7 +28,6 @@ namespace PictureViewer
         Point start;
         Point basePoint = new Point(0, 0);
         string nextPic;
-        //string filters = "*.png";
 
         public PictureViewer()
         {
@@ -42,7 +41,7 @@ namespace PictureViewer
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (openFileDialog1.FileName.EndsWith(".jpg") || openFileDialog1.FileName.EndsWith(".png") || openFileDialog1.FileName.EndsWith(".gif"))
+                if (CheckIfValidFileType(openFileDialog1.FileName))
                 {
                     LoadNewPictureAndFileNames();
                 }
@@ -173,9 +172,11 @@ namespace PictureViewer
 
             filesInFolder = Directory.GetFiles(Path.GetDirectoryName(openFileDialog1.FileName));
 
+            filesInFolderWithValidExtension.Clear(); // required to remove any previous selections
+
             for (int x = 0; x < filesInFolder.Length; ++x)
             {
-                if (filesInFolder[x].EndsWith(".jpg") || filesInFolder[x].EndsWith(".png") || filesInFolder[x].EndsWith(".gif"))
+                if (CheckIfValidFileType(filesInFolder[x]))
                 {
                     filesInFolderWithValidExtension.Add(filesInFolder[x]);
                 }
@@ -195,9 +196,20 @@ namespace PictureViewer
         // Loading a new picture requires setting the next filepath, loading a pic, and resizing the picturebox
         private void LoadNewPicture()
         {
-            imageOriginal = Image.FromFile(nextPic); // is this step required? Perhaps just pictureBox1.Image= Image.FromFile(nextpic)
-            pictureBox1.Image = imageOriginal;
+            pictureBox1.Image = Image.FromFile(nextPic);
             pictureBoxSizeMatch();
+        }
+
+        private bool CheckIfValidFileType(string fileToCheck)
+        {
+            bool isValid = false;
+
+            if (fileToCheck.EndsWith(".jpg") || fileToCheck.EndsWith(".png") || fileToCheck.EndsWith(".gif"))
+            {
+                isValid = true;
+            }
+
+            return isValid;
         }
     }
 }
