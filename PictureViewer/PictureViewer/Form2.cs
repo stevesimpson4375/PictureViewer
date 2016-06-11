@@ -196,8 +196,13 @@ namespace PictureViewer
         // Loading a new picture requires setting the next filepath, loading a pic, and resizing the picturebox
         private void LoadNewPicture()
         {
-            pictureBox1.Image = Image.FromFile(nextPic);
-            pictureBoxSizeMatch();
+            pictureBox1.Image.Dispose();
+            try
+            {
+                pictureBox1.Image = Image.FromFile(nextPic);
+                pictureBoxSizeMatch();
+            }
+            catch (OutOfMemoryException) { }; // This error is most likely a file that cannot be open, so it is skipped
         }
 
         private bool CheckIfValidFileType(string fileToCheck)

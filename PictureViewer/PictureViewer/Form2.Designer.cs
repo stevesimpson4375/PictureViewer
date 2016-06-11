@@ -162,6 +162,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "PictureViewer";
             this.Text = "PictureViewer";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Resize += new System.EventHandler(this.PictureViewer_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
