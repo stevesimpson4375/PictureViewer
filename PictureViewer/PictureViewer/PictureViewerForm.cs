@@ -57,13 +57,20 @@ namespace PictureViewer
             if (zoomSlider.Value > 1)
             {
                 pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
+				panOnSize(pictureBox1.Size);
             }
             else
             {
                 pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
                 pictureBox1.Location = basePoint;
             }
+			
         }
+		
+		private void panOnSize(Size pictureSize)
+		{
+			pictureBox1.Location = new Point(-pictureSize.Width/4,-pictureSize.Height/4);
+		}
 
         private void closeButton_Click(object sender, EventArgs e)
         {
@@ -101,7 +108,7 @@ namespace PictureViewer
             LoadNewPicture();
         }
 
-        // This method matched the pictureBox size to the panel
+        // This method matches the pictureBox size to the panel
         private void pictureBoxSizeMatch()
         {
             pictureBox1.Size = splitContainer1.Panel2.Size;
