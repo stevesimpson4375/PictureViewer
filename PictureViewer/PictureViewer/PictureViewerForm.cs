@@ -54,23 +54,15 @@ namespace PictureViewer
 
         private void zoomSlider_Scroll(object sender, ScrollEventArgs e)
         {
-            if (zoomSlider.Value > 1)
+            if (zoomSlider.Value == 1)
             {
-                pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
-				panOnSize(pictureBox1.Size);
-            }
-            else
-            {
-                pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
                 pictureBox1.Location = basePoint;
             }
-			
+
+            pictureBox1.Size = new Size(zoomSlider.Value * picBoxSize.Width, zoomSlider.Value * picBoxSize.Height);
+
         }
-		
-		private void panOnSize(Size pictureSize)
-		{
-			pictureBox1.Location = new Point(-pictureSize.Width/4,-pictureSize.Height/4);
-		}
+
 
         private void closeButton_Click(object sender, EventArgs e)
         {
@@ -208,6 +200,7 @@ namespace PictureViewer
             {
                 pictureBox1.Image = Image.FromFile(nextPic);
                 pictureBoxSizeMatch();
+                zoomSlider.Value = 1; // The zoom slider is reset to prevent erratic zooming
             }
             catch (OutOfMemoryException) { }; // This error is most likely a file that cannot be open, so it is skipped
         }
